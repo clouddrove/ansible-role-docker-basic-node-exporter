@@ -1,0 +1,20 @@
+---
+# handlers for ansible-role-docker-basic_exporter
+
+- name: restart basic_exporter
+  service:
+    name: basic_exporter
+    state: restarted
+    enabled: true
+
+- name: start basic_exporter
+  service:
+    name: basic_exporter
+    state: started
+    enabled: true
+
+- name: reload basic_exporter
+  service:
+    name: basic_exporter
+    state: reloaded
+    enabled: true

@@ -1,0 +1,7 @@
+---
+
+# Networking/connection options
+basic_exporter_server_port: 9100
+basic_exporter_server_bind: 0.0.0.0
+
+basic_exporter_version: v0.18.1

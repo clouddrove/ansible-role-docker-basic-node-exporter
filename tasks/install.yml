@@ -1,0 +1,32 @@
+---
+
+- name: copy basic exporter script
+  template:
+    src: "basic_exporter"
+    dest: /usr/local/bin/basic_exporter
+    mode: 0755
+    owner: root
+    group: root
+
+- name: copy basic exporter script
+  template:
+    src: "basic_exporter.service"
+    dest: /etc/systemd/system/basic_exporter.service
+    mode: 0644
+    owner: root
+    group: root
+
+- name: restart basic exporter service is restarted
+  service:
+    name: basic_exporter
+    state: restarted
+  changed_when: false
+
+- name: wait for basic exporter to become ready
+  wait_for:
+    host: "{{ basic_exporter_server_bind }}"
+    port: "{{ basic_exporter_server_port }}"
+    state: started
+    delay: 5
+    connect_timeout: 15
+    timeout: 300

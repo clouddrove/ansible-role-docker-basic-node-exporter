@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -eux -o pipefail
+
+# pull the image before so we dont first remove the container and then pull
+docker pull quay.io/prometheus/node-exporter:"{{ basic_exporter_version }}"
+
+docker rm -f -v nginx_exporter || :
+
+docker run --rm --name=basic_exporter \
+	--net="host" \
+	--pid="host" \
+	-v "/:/host:ro,rslave" \
+   quay.io/prometheus/node-exporter:"{{ basic_exporter_version }}"
